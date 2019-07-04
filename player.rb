@@ -43,7 +43,6 @@ class Player
 
 	    if item != 1 && times >= 3 then
 	      result += item * 100
-	      times -= 3
 	      @player[:non_scoring] -= times
 	    end
 	    
@@ -82,6 +81,9 @@ class Game
 		puts "Total score: #{player[:fin_score]}"
 		if (player[:temp_score] == 0  && score >= 0) || player[:temp_score] != 0
 			if score != 0
+				if player[:non_scoring]==0
+					player[:non_scoring]=5
+				end
 				player[:temp_score] += score
 			  	puts "Press 1 if you wish to roll the non-scoring #{player[:non_scoring]} dices. Else press 0 :"
 				c = gets.chomp
@@ -137,7 +139,6 @@ class Game
 			t = @players[i]
 			s = t.player
 			score = t.roll_dice(s) 
-
 			calculate(score, s)
 		else
 			@rnd += 1
