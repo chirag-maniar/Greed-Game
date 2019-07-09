@@ -28,9 +28,8 @@ class Player
 	      result += 1000
 	      times -= 3
 	      @player[:non_scoring] -= 3
-	    end
-
-	    if item == 5 && times >= 3 then 
+	    
+	    elsif item == 5 && times >= 3 then 
 	      result += 500
 	      times -= 3
 	      @player[:non_scoring] -= 3
@@ -39,14 +38,12 @@ class Player
 	    if item == 5 && times <=2 then
 	      result += 50 * times
 	      @player[:non_scoring] -= times
-	    end
 
-	    if item != 1 && times >= 3 then
+	    elsif item != 1 && times >= 3 then
 	      result += item * 100
 	      @player[:non_scoring] -= times
-	    end
 	    
-	    if item == 1 && times <= 2 then 
+	    elsif item == 1 && times <= 2 then 
 	      result += 100 * times
 	      @player[:non_scoring] -= times
 	    end
@@ -99,6 +96,9 @@ class Game
 					end
 
 					if player[:fin_score] >= 3000 && !@last[:flag]
+						@players.each{ |e|
+								puts "Player: #{e.player[:name]+1} Score: #{e.player[:fin_score]}"
+						}
 						puts "Last turn"
 						@last = {flag: true, end: i == @players.length}
 					end
@@ -141,6 +141,11 @@ class Game
 			score = t.roll_dice(s) 
 			calculate(score, s)
 		else
+			puts "\nScores after Turn #{@rnd}: "
+			@players.each{ |e|
+				puts "Player: #{e.player[:name]+1} Score: #{e.player[:fin_score]}"
+			}
+			puts ""
 			@rnd += 1
 			puts "Turn #{@rnd}: \n" if !@last[:flag]
 			if !@last[:flag] || @last[:end] 
@@ -154,8 +159,5 @@ class Game
 		end
 	end 
 end
-
-g = Game.new
-g.initial_start 
 
 

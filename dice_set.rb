@@ -1,4 +1,3 @@
-
 class DiceSet
 
   attr_reader :values
